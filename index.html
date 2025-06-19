@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microscope Filter Cube Compatibility Cheatsheet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .controls {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box input, .search-box select {
+            padding: 10px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus, .search-box select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-box input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .legend {
+            padding: 20px 30px;
+            background: #e8f4fd;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .legend h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            font-size: 14px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            padding: 20px 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: top;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .brand-olympus { background-color: #e3f2fd; }
+        .brand-nikon { background-color: #f3e5f5; }
+        .brand-thorlabs { background-color: #e8f5e8; }
+        .brand-chroma { background-color: #fff3e0; }
+        .brand-leica { background-color: #fce4ec; }
+        .brand-zeiss { background-color: #e0f2f1; }
+
+        .cube-model {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .filter-sizes {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+        }
+
+        .compatibility {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .notes {
+            font-size: 13px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .status-available {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .status-lead-time {
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        .footer {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .search-box {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box input, .search-box select {
+                width: 100%;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+                font-size: 14px;
+            }
+            
+            .filter-sizes {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔬 Microscope Filter Cube Compatibility Cheatsheet</h1>
+            <p>Quick reference guide for fluorescence microscope filter cube selection</p>
+        </div>
+
+        <div class="legend">
+            <h3>📋 Legend</h3>
+            <div class="legend-grid">
+                <div class="legend-item">
+                    <div class="legend-color brand-olympus"></div>
+                    <span>Olympus Compatible</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color brand-nikon"></div>
+                    <span>Nikon Compatible</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color brand-leica"></div>
+                    <span>Leica Compatible</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color brand-zeiss"></div>
+                    <span>Zeiss Compatible</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table id="filterCubeTable">
+                <thead>
+                    <tr>
+                        <th>SyronOptics Partnumber</th>
+                        <th>Cube Model</th>
+                        <th>Compatible Microscopes</th>
+                        <th>Filter Sizes</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Thorlabs Filter Cubes -->
+                    <tr class="brand-thorlabs">
+                        <td><a href="https://syronoptics.com/products/so1002001" target="_blank" style="color: #2c3e50; text-decoration: underline;">SO1002001</a></td>
+                        <td class="cube-model">U-MF2</td>
+                        <td class="compatibility">Olympus AX, BX2, IX2 series</td>
+                        <td class="filter-sizes">
+                            Excitation: Ø25 mm, 5 mm<br>
+                            Emission: Ø25 mm, 3.5 mm<br>
+                            Dichroic: 25.2×36.0×1.0 mm
+                        </td>
+                        <td>150USD</td>
+                    </tr>
+                    <tr class="brand-thorlabs">
+                        <td><a href="https://syronoptics.com/products/so1002002" target="_blank" style="color: #2c3e50; text-decoration: underline;">SO1002002</a></td>
+                        <td class="cube-model">U-FF</td>
+                        <td class="compatibility">Olympus BX3, IX3 series</td>
+                        <td class="filter-sizes">
+                            Excitation: Ø25 mm, 5 mm<br>
+                            Emission: Ø25 mm, 3.5 mm<br>
+                            Dichroic: 25.2×36.0×1.0 mm
+                        </td>
+                        <td>150USD</td>
+                    </tr>
+                    <tr class="brand-nikon">
+                        <td><a href="https://syronoptics.com/products/so1002003" target="_blank" style="color: #2c3e50; text-decoration: underline;">SO1002003</a></td>
+                        <td class="cube-model">TE2000</td>
+                        <td class="compatibility">Nikon TE2000, Eclipse Ti series</td>
+                        <td class="filter-sizes">
+                            Excitation: Ø25 mm, 5 mm<br>
+                            Emission: Ø25 mm, 3.5 mm<br>
+                            Dichroic: 25.2×36.0×1.0 mm
+                        </td>
+                        <td>150USD</td>
+                    </tr>
+
+                    <!-- Chroma Filter Cubes -->
+                    <tr class="brand-leica">
+                        <td><a href="https://syronoptics.com/products/so1002004" target="_blank" style="color: #2c3e50; text-decoration: underline;">SO1002004</a></td>
+                        <td class="cube-model">91024</td>
+                        <td class="compatibility">Leica DM 2500, 3000, 5000, 6000, 6</td>
+                        <td class="filter-sizes">
+                            Excitation: Ø21.9 mm<br>
+                            Emission: Ø23.4 mm<br>
+                            Dichroic: 22×29 mm
+                        </td>
+                        <td>150USD</td>
+                    </tr>
+                    <tr class="brand-leica">
+                        <td><a href="https://syronoptics.com/products/so1002005" target="_blank" style="color: #2c3e50; text-decoration: underline;">SO1002005</a></td>
+                        <td class="cube-model">91050</td>
+                        <td class="compatibility">Leica DMi8</td>
+                        <td class="filter-sizes">
+                            Excitation: Ø25 mm, 5.0 mm<br>
+                            Emission: Ø25 mm, 3.5 mm<br>
+                            Dichroic: 25.2 mm × 35.6 mm, 1.1 mm
+                        </td>
+                        <td>150USD</td>
+                    </tr>
+                    <tr class="brand-zeiss">
+                        <td>91029</td>
+                        <td class="cube-model">91029</td>
+                        <td class="compatibility">Zeiss Axio Imager</td>
+                        <td class="filter-sizes">
+                            Excitation: 25 mm<br>
+                            Emission: 25 mm<br>
+                            Dichroic: 25.5×36 mm
+                        </td>
+                        <td>150USD</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer" style="padding: 20px 30px; background: #f8f9fa; text-align: center; color: #666; font-size: 14px;">
+            Made by <a href="https://syronoptics.com" target="_blank" style="color: #667eea; text-decoration: none;">Syronoptics.com</a>, All rights reserved 2025
+        </div>
+    </div>
+</body>
+</html> 
